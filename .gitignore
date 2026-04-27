@@ -1,25 +1,72 @@
-# Build
-*.obj
-*.log
-*.pdb
+# Build artifacts
+
 [Bb]in/
-[Dd]ebug/
+[Dd]ist/
 [Oo]bj/
-[Rr]elease/
-[Rr]eleases/
+[Pp]ackages/
+[Pp]ublished/
 
-# NuGet
 *.nupkg
-**/[Pp]ackages/*
+*.pdb
 
-# Test
-[Ll]og/
-[Ll]ogs/
-[Ss]torage/
+# IDE and editor settings
+
+.claude/
+.idea/
+.vs/
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# Secrets and local configuration
+
+*.key
+*.p12
+*.pem
+*.pfx
+
+.env
+.env.*.local
+.env.local
+
+[Aa]pp[Ss]ettings.[Ll]ocal.json
+[Aa]pp[Ss]ettings.[Ww]ork.json
+secrets.json
 
 # Node.js
+
 node_modules/
 
-# Visual Studio and VS Code
-.vs/
-.vscode/
+npm-debug.log*
+yarn-error.log
+
+# Python virtual environments
+
+.venv/
+venv/
+env/
+
+# Test results and coverage
+
+[Tt]est[Rr]esults/
+
+*.coverage
+*.coveragexml
+
+# Temporary and log files
+
+[Tt]emp/
+[Tt]mp/
+
+*.binlog
+*.log
+*.opendb
+*.rdl.data
+*.rptproj.rsuser
+*.rsuser
+*.suo
+*.user
+*.vsidx

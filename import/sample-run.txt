@@ -1,0 +1,36 @@
+Acquired Bearer access token (expires in 40,320 minutes) - token lifetime is 2,419,200 seconds (~4 weeks)
+
+1. CREATE  POST api/directory/pending-people
+   Created pending-person d6812ef0-e2d7-434c-9a67-ddc58c2c863e at 2026-04-27T09:29:41.1608027-06:00
+
+2. ASSERT  HEAD api/directory/pending-people/{pending}
+   Exists: True
+
+3. RETRIEVE  GET api/directory/pending-people/{pending}
+   PendingId:   d6812ef0-e2d7-434c-9a67-ddc58c2c863e
+   Name:        Jane Doe
+   Email:       jane.doe@example.com
+   PersonCode:  EMP-4710
+   SubmittedAt: 2026-04-27T09:29:41.1608027-06:00
+
+4. MODIFY  PUT api/directory/pending-people/{pending}
+   Modified successfully.
+
+5. COUNT  POST api/directory/pending-people/count
+   Matching records: 1
+
+6. COLLECT  POST api/directory/pending-people/collect  (page 1, size 5)
+   d6812ef0-e2d7-434c-9a67-ddc58c2c863e  Jane Smith  (jane.doe@example.com)
+   d0509dcb-a04d-42c6-8736-62a593744c65  Jane Doe  (jane.doe@example.com)
+   058f283e-e6e8-4e28-92da-1fdc5dcd6e27  Jane Doe  (jane.doe@example.com)
+
+7. SEARCH  POST api/directory/pending-people/search
+   d6812ef0-e2d7-434c-9a67-ddc58c2c863e  Jane Smith  submitted Apr 27, 2026 - 9:29 AM MDT (47 milliseconds ago) by Daniel Miller
+
+8. DOWNLOAD  POST api/directory/pending-people/download
+   Saved 1,273 bytes to C:\base\repo\insite\quickstart\import\sample-export.json
+
+9. DELETE  DELETE api/directory/pending-people/{pending}
+   Deleted d6812ef0-e2d7-434c-9a67-ddc58c2c863e
+
+Done. All api/directory/pending-people endpoints exercised.

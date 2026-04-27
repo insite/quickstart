@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Cookie Authentication</title>
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="styles.css" rel="stylesheet" media="screen" type="text/css" />
+</head>
+
+<body>
+
+    <h1>Cookie Authentication</h1>
+
+    <div id="step1" class="step">
+        <h2>Step 1</h2>
+        <p>Sign in with the web UI in your local environment. For example:</p>
+        <ol>
+            <li>Navigate to https://local-demo.shiftiq.com and login with your email address.</li>
+            <li>Use the Developer Tools in your browser to copy the authentication token from the HTTP cookie named
+                "<strong>InSite.WebToken</strong>".</li>
+            <li>Return here to http://localhost:5005 and proceed to the next step.</li>
+        </ol>
+    </div>
+
+    <div id="step2" class="step">
+        <h2>Step 2</h2>
+        <p>Perform a health check on the API server to confirm it is online.</p>
+        <p>Request URL: <code id="step2_url" class="request-url"></code></p>
+        <button onclick="healthCheck()">Health Check</button>
+        <p id="step2_status"></p>
+    </div>
+
+    <div id="step3" class="step" style="display:none;">
+
+        <h2>Step 3</h2>
+        <p>
+            Paste the authentication token from the first step into the text box below, and then ask the API server to
+            generate the same cookie here on your localhost domain.
+        </p>
+
+        <div class="form-field">
+            <label>Authentication Cookie Value</label>
+            <textarea placeholder="Cookie authentication token value" id="input_cookie_value"
+                class="input-value"></textarea>
+        </div>
+
+        <p>Request URL: <code id="step3_url" class="request-url"></code></p>
+        <div>
+            <button onclick="generateCookie()">Request Cookie</button>
+        </div>
+        <p id="step3_status"></p>
+        <pre id="cookie_display" class="output-display"></pre>
+
+    </div>
+
+    <div id="step4" class="step" style="display:none;">
+
+        <h2>Step 4</h2>
+        <p>Send a request to an API endpoint that uses the CookieAuth scheme.</p>
+
+        <p>Request URL: <code id="step4_url" class="request-url"></code></p>
+        <div>
+            <button onclick="useCookie()">Use Cookie</button>
+        </div>
+        <p id="step4_status"></p>
+        <pre id="introspection_display" class="output-display-lg"></pre>
+
+    </div>
+
+    <script src="script.js" type="text/javascript" defer></script>
+
+</body>
+
+</html>

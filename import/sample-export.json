@@ -1,0 +1,38 @@
+[
+  {
+    "SubmittedBy": "f55d3649-1d4c-4c93-b169-af64016bad33",
+    "PendingId": "058f283e-e6e8-4e28-92da-1fdc5dcd6e27",
+    "OrganizationId": "657b5405-68d3-4a7a-95a3-c4e19d101352",
+    "PersonId": null,
+    "UserId": null,
+    "PersonCode": "EMP-4710",
+    "UserEmail": "jane.doe@example.com",
+    "UserFirstName": "Jane",
+    "UserLastName": "Doe",
+    "SubmittedAt": "2026-04-27T09:00:06.9680207-06:00"
+  },
+  {
+    "SubmittedBy": "f55d3649-1d4c-4c93-b169-af64016bad33",
+    "PendingId": "d0509dcb-a04d-42c6-8736-62a593744c65",
+    "OrganizationId": "657b5405-68d3-4a7a-95a3-c4e19d101352",
+    "PersonId": null,
+    "UserId": null,
+    "PersonCode": "EMP-4710",
+    "UserEmail": "jane.doe@example.com",
+    "UserFirstName": "Jane",
+    "UserLastName": "Doe",
+    "SubmittedAt": "2026-04-27T09:01:47.962743-06:00"
+  },
+  {
+    "SubmittedBy": "f55d3649-1d4c-4c93-b169-af64016bad33",
+    "PendingId": "d6812ef0-e2d7-434c-9a67-ddc58c2c863e",
+    "OrganizationId": "657b5405-68d3-4a7a-95a3-c4e19d101352",
+    "PersonId": null,
+    "UserId": null,
+    "PersonCode": "EMP-4710",
+    "UserEmail": "jane.doe@example.com",
+    "UserFirstName": "Jane",
+    "UserLastName": "Smith",
+    "SubmittedAt": "2026-04-27T09:29:41.1608027-06:00"
+  }
+]
