@@ -1,12 +1,12 @@
-# Shift Directory — Pending Person API Quickstart
+# Directory API — How to import pending contact people
 
-A .NET 10 console application that demonstrates every endpoint exposed by the **Pending Person**
-controller in the Shift Directory API (`/api/directory/pending-people`).
+This is a .NET 10 console application that demonstrates every endpoint exposed by the **Pending Person**
+controller in the Directory API (`/api/directory/pending-people`).
 
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
-- A valid Shift instance URL and a **client secret** whose issued token satisfies these policies:
+- A valid Shift iQ instance URL and a **client secret** whose issued token satisfies these policies:
   - `directory/pending-people:data:1` — read (assert, retrieve, collect, count, search, download)
   - `directory/people:data:2` — modify
   - `directory/people:data:4` — create
