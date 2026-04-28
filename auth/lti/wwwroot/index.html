@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LTI Launch Demo</title>
+    <link rel="stylesheet" href="site.css" />
+</head>
+<body>
+    <div id="content">
+
+        <section id="step1">
+            <h1>Simulate LTI Launch Request</h1>
+            <p>This form simulates a basic LTI Consumer.</p>
+            <p>Click the Validate button to create an LTI launch request for Single-Sign-On access to Shift iQ.</p>
+
+            <form id="form-validate">
+                <table class="parameters">
+                    <thead>
+                        <tr><th>Parameter</th><th>Value</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><label for="LearnerCode" title="user_id">Learner Code:</label></td>
+                            <td><input type="text" id="LearnerCode" name="LearnerCode" /></td></tr>
+                        <tr><td><label for="LearnerEmail" title="lis_person_contact_email_primary">Learner Email:</label></td>
+                            <td><input type="text" id="LearnerEmail" name="LearnerEmail" /></td></tr>
+                        <tr><td><label for="LearnerNameFirst" title="lis_person_name_given">Learner First Name:</label></td>
+                            <td><input type="text" id="LearnerNameFirst" name="LearnerNameFirst" /></td></tr>
+                        <tr><td><label for="LearnerNameLast" title="lis_person_name_family">Learner Last Name:</label></td>
+                            <td><input type="text" id="LearnerNameLast" name="LearnerNameLast" /></td></tr>
+                        <tr><td><label for="GroupName" title="shift_group_name">Group Name:</label></td>
+                            <td><input type="text" id="GroupName" name="GroupName" /></td></tr>
+                        <tr><td><label for="OrganizationIdentifier" title="shift_organization_identifier">Organization Identifier:</label></td>
+                            <td><input type="text" id="OrganizationIdentifier" name="OrganizationIdentifier" /></td></tr>
+                        <tr><td><label for="OrganizationSecret" title="oauth_consumer_key">Organization Secret:</label></td>
+                            <td><input type="text" id="OrganizationSecret" name="OrganizationSecret" /></td></tr>
+                        <tr><td><label for="LaunchUrl">Launch URL:</label></td>
+                            <td><input type="text" id="LaunchUrl" name="LaunchUrl" /></td></tr>
+                        <tr><td colspan="2">
+                            <button type="submit" class="button">Validate</button>
+                        </td></tr>
+                    </tbody>
+                </table>
+            </form>
+            <p id="validate-error" class="error" hidden></p>
+        </section>
+
+        <section id="step2" hidden>
+            <h1>LTI Tool Consumer</h1>
+            <p>This form simulates a basic LTI Tool Consumer.</p>
+            <p>Click the Launch link to send an LTI launch request message for Single-Sign-On access to Shift iQ.</p>
+
+            <div id="submitForm">
+                <table class="parameters">
+                    <thead>
+                        <tr><th>Parameter</th><th>Value</th></tr>
+                    </thead>
+                    <tbody id="parameter-rows"></tbody>
+                    <tfoot>
+                        <tr><td colspan="2" align="right">
+                            <a class="button" href="#" id="launch-link">Launch</a>
+                        </td></tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div id="keys"></div>
+        </section>
+
+    </div>
+    <script src="site.js"></script>
+</body>
+</html>

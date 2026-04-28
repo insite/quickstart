@@ -1,36 +1,106 @@
-# SSO LTI Demo
+# LTI Authentication Demo
 
 This repository contains the source code for a demonstration of Single Sign On (SSO) using Learning Tools Interoperability (LTI).
 
-The integration endpoint for an LTI Launch in Shift iQ is platform-agnostic, therefore it can be used to integrate any application that is able to send an HTTP request. 
+The integration endpoint for an LTI Launch in Shift iQ is platform-agnostic, so it can be used to integrate any application that is able to send an HTTP request.
 
-This particular demo shows how to implement SSO from a Microsoft ASP.NET web application. You'll notice the integration itself is a simple HTTP POST, so you can use the source code here as a reference for building an integration from any web application developed using any programming language.
+This particular demo is split into two pieces:
 
-## Setup Instructions
+- A **static HTML/CSS/JS website** in `wwwroot/` that collects the LTI parameters and posts the signed launch request to Shift iQ.
+- A **.NET 10 minimal API** at the project root that signs the LTI launch request server-side using HMAC-SHA256.
 
-If you want to configure this demo web application in your local development environment, then you can follow the steps here.
+You can use the source code here as a reference for building an integration from any web application written in any programming language.
 
-First, clone the SsoLtiDemo repository to your local environment. 
-
-Next, create an IIS Site that binds to the Source folder. For example, here you can see my site binds to `C:\Base\Repos\InSite\SsoLtiDemo\Source`:
-
-![SsoLtiDemo-1](https://github.com/user-attachments/assets/0c20375b-721f-4012-bf96-bf307e2d4a71)
-
-Remember to ensure your local **hosts** file includes an entry for the domain name you decide to use. The first two lines in my `C:\Windows\System32\drivers\etc\hosts` file look like this:
+## Project layout
 
 ```
-127.0.0.1 localhost
-127.0.0.1 lti-launch-demo.insite.com
+.
+├── LtiLaunch.Api.csproj      .NET 10 API project file
+├── LtiLaunch.sln             Solution file
+├── Program.cs                Minimal API host and endpoint definitions
+├── appsettings.json          Default LTI parameter values (under "LtiDefaults")
+├── appsettings.work.json     Local-only overrides for private values (gitignored)
+├── Properties/
+│   └── launchSettings.json
+├── Lti/                      LTI signing logic
+│   ├── LtiParameters.cs
+│   ├── LtiRole.cs
+│   ├── LtiTicket.cs
+│   ├── LtiTicketHelper.cs
+│   └── TicketModels.cs
+└── wwwroot/                  Static frontend (deployable as-is to any static host)
+    ├── index.html
+    ├── site.css
+    └── site.js
 ```
 
-Edit the project file `LtiLaunch.csproj` and ensure the **IISUrl** element matches the domain name you decide to use.
+## API
 
-Build and run the application. Fill in the LTI Launch Request form. (You will need an Organization Identifier and an Organization Secret from the InSite support team.)
+| Method | Path                  | Purpose                                                                                  |
+| ------ | --------------------- | ---------------------------------------------------------------------------------------- |
+| GET    | `/api/lti/defaults`   | Returns the default form values from `appsettings.json` so the page can pre-populate.    |
+| POST   | `/api/lti/ticket`     | Accepts JSON form values, returns the signed LTI parameters and the destination URL.    |
 
-![SsoLtiDemo-2](https://github.com/user-attachments/assets/7dd1be89-d4b4-4708-bef0-62d27df63b15)
+`POST /api/lti/ticket` request body:
 
-Click the button **Validate and Launch**. This will create and display an HTTP POST request for your review. Read and understand the code behind this step so you know exactly what is required in the LTI launch.
+```json
+{
+  "LearnerCode": "BB123",
+  "LearnerEmail": "bugs.bunny@example.com",
+  "LearnerNameFirst": "Bugs",
+  "LearnerNameLast": "Bunny",
+  "GroupName": "Tunes",
+  "OrganizationIdentifier": "f85f5022-...",
+  "OrganizationSecret": "bB8u6Tj6...",
+  "LaunchUrl": "https://dev-demo.shiftiq.com/ui/lobby/integration/lti/launch"
+}
+```
 
-![image](https://github.com/user-attachments/assets/3650bc8d-8df2-4d4a-839b-879771278d4c)
+Response:
 
-Click the link **Launch** to submit the HTTP POST request to the LTI endpoint in Shift iQ. If your request is valid, then you will be authenticated automatically by Shift iQ. If the learner identified in the request does not already exist in Shift iQ, then a new account for the learner is created and approved automatically.
+```json
+{
+  "url": "https://dev-demo.shiftiq.com/ui/lobby/integration/lti/launch",
+  "parameters": {
+    "lis_person_contact_email_primary": "bugs.bunny@example.com",
+    "lti_message_type": "basic-lti-launch-request",
+    "oauth_consumer_key": "...",
+    "oauth_nonce": "...",
+    "oauth_signature": "...",
+    "oauth_signature_method": "HMAC-SHA256",
+    "oauth_timestamp": "...",
+    "oauth_version": "1.0",
+    "...": "..."
+  }
+}
+```
+
+## Running locally
+
+You will need the [.NET 10 SDK](https://dotnet.microsoft.com/download).
+
+Create `appsettings.work.json` (gitignored) alongside `appsettings.json` and add the private values for your local environment:
+
+```json
+{
+  "LtiDefaults": {
+    "OrganizationIdentifier": "...",
+    "OrganizationSecret": "...",
+    "LaunchUrl": "https://dev-demo.shiftiq.com/ui/lobby/integration/lti/launch"
+  }
+}
+```
+
+Then run:
+
+```
+dotnet run
+```
+
+Then open `http://localhost:5005`. Fill in the LTI Launch Request form (you will need an Organization Identifier and an Organization Secret from the support team), click **Validate**, then click **Launch** to post the signed request to the Shift iQ LTI endpoint.
+
+If your request is valid, then you will be authenticated automatically by Shift iQ. If the learner identified in the request does not already exist in Shift iQ, then a new account for the learner is created and approved automatically.
+
+## Deploying the static site separately
+
+The contents of `wwwroot/` have no server-side dependencies and can be hosted on any static file host (Azure Static Web Apps, S3 + CloudFront, GitHub Pages, etc.). If you do this, deploy the API separately and update `site.js` to point its `fetch` calls at the API's absolute URL — and add a CORS policy on the API to allow the static site's origin.
